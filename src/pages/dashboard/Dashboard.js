@@ -40,7 +40,7 @@ function Dashboard() {
                     <Col lg={3} className="mt-lg-0 mt-3">
                         <div className="today_list">
                             <div className="today_list-title text-center">
-                                <h6>Total Users</h6>
+                                <h6>Total Products</h6>
                             </div>
                             <div className="today_description text-center">
                                 <h6>1,000</h6>
@@ -50,10 +50,10 @@ function Dashboard() {
                     <Col lg={3} className="mt-lg-0 mt-3">
                         <div className="today_list">
                             <div className="today_list-title text-center">
-                                <h6>Total Investment</h6>
+                                <h6>Total Inquireies</h6>
                             </div>
                             <div className="today_description text-center">
-                                <h6>17,860,600</h6>
+                                <h6>1600</h6>
                             </div>
                         </div>
                     </Col>

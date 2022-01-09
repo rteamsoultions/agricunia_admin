@@ -317,7 +317,7 @@
 }
 
 .container_check input:checked ~ .checkmark {
-  background-color: #B931B8;
+  background-color: #29803b;
   border: 1px solid transparent;
 }
 
@@ -365,7 +365,7 @@
 }
 
 .loginreg-btn{
-  background-color:#B931B8 !important;
+  background-color:#29803b !important;
   border:none !important;
   border-radius:0 !important;
   display: inline-block;
@@ -391,7 +391,7 @@
 }
 
 .signup-link:hover{
-  color:#B931B8;
+  color:#29803b;
   text-decoration:none;
 }
 
@@ -414,15 +414,15 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: #B931B8;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 3px #B931B8;
+  border-color: #29803b;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 3px #29803b;
   outline: 0 none;
 }
 
 
 select:focus{
-  border-color: #B931B8 !important;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 3px #B931B8 !important;
+  border-color: #29803b !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 3px #29803b !important;
   outline: 0 none !important;
 }
 
@@ -433,7 +433,7 @@ input[type="date"]:focus{
 }
 
 .custom-hash{
-  color:#B931B8;
+  color:#29803b;
   font-weight:bold;
 }
 
@@ -567,7 +567,7 @@ option{
 }
 
 .span-color-pink{
-  color:#B931B8;
+  color:#29803b;
 }
 
 select option{
@@ -575,8 +575,8 @@ select option{
 }
 
 .overflow-table{
-  /* overflow-x:auto; */
-  overflow-x:hidden;
+  overflow-x:auto;
+  /* overflow-x:hidden; */
 }
 
 .arrrow-pagination{
@@ -603,9 +603,9 @@ select option{
 
 
 .arrrow-pagination:hover, .number-pagination:hover{
-  background: #B931B8 !important;
+  background: #29803b !important;
   color:#fff !important;
-  border:1px solid #B931B8 !important;
+  border:1px solid #29803b !important;
   transition: 0.5s;
   
   font-weight:bold !important;
@@ -617,7 +617,7 @@ button:focus{
 }
 
 .pagination-btn button:focus{
-  background: #B931B8 !important;
+  background: #29803b !important;
   color:#fff !important;
 }
 
@@ -637,11 +637,11 @@ button:focus{
 
 
 select option:checked {
-  background: #B931B8 -webkit-linear-gradient(bottom, #ff9500 0%, #ff9500 100%) !important;
+  background: #29803b -webkit-linear-gradient(bottom, #ff9500 0%, #ff9500 100%) !important;
   color: #fff !important;
 }
 select option:hover {
-  background: #B931B8 -webkit-linear-gradient(bottom, rgb(255, 149, 0) 0%, #ff9500 100%) !important;
+  background: #29803b -webkit-linear-gradient(bottom, rgb(255, 149, 0) 0%, #ff9500 100%) !important;
   color: #fff !important;
 }
 
@@ -655,7 +655,7 @@ select option:hover {
 } */
 
 .bg-pink{
-  background-color:#B931B8 !important;
+  background-color:#29803b !important;
   padding-right:30px !important;
   padding-left:30px !important;
 }
@@ -684,7 +684,7 @@ select option:hover {
 }
 
 .profile-table-td-input select{
-  width:70%;
+  width:500px;
 }
 
 .profile-label{
@@ -810,6 +810,7 @@ select option:hover {
   position: absolute;
   height: 100%;
   top: -35px;
+  overflow: hidden;
 }
 
 .close-image{
@@ -984,12 +985,12 @@ margin-right:10px !important;
 } */
 
 .focus-status:focus{
-  background-color:#B931B8  !important;
+  background-color:#29803b  !important;
   color:#fff !important;
 }
 
 .swal-button--confirm{
-  background-color:#B931B8 !important;
+  background-color:#29803b !important;
   border-radius:0 !important;
 }
 
@@ -1071,8 +1072,8 @@ table td{
 
 .music-source-tab .nav-pills .nav-link.active, .nav-pills .show>.nav-link{
   color: #fff;
-  background: #B931B8 !important;
-  border:1px solid #B931B8;
+  background: #29803b !important;
+  border:1px solid #29803b;
   border-radius:0 !important;
   text-align:center;
 
@@ -1128,7 +1129,7 @@ textarea.form-control {
 }
 
 .focus-pink:focus{
-  background-color:#B931B8 !important;
+  background-color:#29803b !important;
 }
 
 .rounded-border{
@@ -1174,7 +1175,7 @@ background-color:#fff !important;
 }
 
 .container_check_button input:checked ~ .checkmark {
-  background-color: #B931B8;
+  background-color: #29803b;
   border: 1px solid transparent;
 } */
 
@@ -1195,7 +1196,7 @@ background-color:#fff !important;
 }
 
 .container_check-detail input:checked ~ .checkmark{
-  background-color: #B931B8;
+  background-color: #29803b;
   color: #fff;
   border: 1px solid transparent;
 }

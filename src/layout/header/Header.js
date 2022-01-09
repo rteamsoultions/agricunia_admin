@@ -4,8 +4,8 @@ import { Navbar} from 'react-bootstrap';
 function Header() {
     return (
   
-        <Navbar className="header-bg justify-content-center py-4">
-            <Navbar.Brand className="text-white logo-text">stela Administrator</Navbar.Brand>
+        <Navbar className=" justify-content-center py-4">
+            <Navbar.Brand className="text-white logo-text"><img src="img/logo.png" width={90}/></Navbar.Brand>
         </Navbar>
     )
 }

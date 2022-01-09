@@ -32,7 +32,7 @@ export default function MusicSourceList() {
     if (row.Musics_Status === "Disapproved") {
       return (
         <span>
-          <strong style={{ color: '#B931B8' }}>{cell}</strong>
+          <strong style={{ color: '#29803b' }}>{cell}</strong>
         </span>
       );
     }

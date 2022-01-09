@@ -1,9 +1,12 @@
 import React from 'react';
 import { Col, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import Buttons from '../../common/Buttons';
 
 
 function MusigReg() {
+
+    const history = useHistory();
 
     const RecMusicReg = [
         {
@@ -111,6 +114,10 @@ function MusigReg() {
         console.log('Recent music registration history')
     }
 
+    const userView = () =>{
+        history.push("/user-details")
+    }
+
     return (
         <>
             <Col className="mt-md-5">
@@ -151,7 +158,7 @@ function MusigReg() {
                                         <td>{item.Mo}</td>
                                         <td>{item.Reg}</td>
                                         <td>
-                                            <button className='view-moreBtn'>View More</button>
+                                            <button className='view-moreBtn' onClick={userView}>View More</button>
                                         </td>
 
                                     </tr>

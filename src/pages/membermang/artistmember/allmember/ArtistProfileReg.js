@@ -80,7 +80,7 @@ function ArtistProfileReg() {
         if (row.musics_status === "Disapproved") {
           return (
             <span>
-              <strong style={ { color: '#B931B8' } }>{ cell }</strong>
+              <strong style={ { color: '#29803b' } }>{ cell }</strong>
             </span>
           );
         }
@@ -312,7 +312,7 @@ function ArtistProfileReg() {
         if (row.sett_status === "Pending") {
           return (
             <span>
-              <strong style={ { color: '#B931B8' } }>{ cell }</strong>
+              <strong style={ { color: '#29803b' } }>{ cell }</strong>
             </span>
           );
         }

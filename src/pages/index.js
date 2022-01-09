@@ -5,10 +5,24 @@ import Layout from '../layout/Layout';
 import LogRegLayout from '../layout/LogRegLayout';
 import AboutAgricunia from './about-agricunia/AboutAgricunia';
 import AboutUs from './about-us/AboutUs';
+import Agricademy from './agricademy/Agricademy';
+import BlogDes from './agricademy/BlogDes';
+import BlogDetails from './agricademy/BlogDetails';
+import BlogList from './agricademy/BlogList';
 import FaqList from './customerservice/FaqList';
 import FaqReg from './customerservice/FaqReg';
 import Dashboard from './dashboard/Dashboard'
 import BIOFarmPage from './farm-page/BIOFarmPage';
+import Gallary from './gallary/Gallary';
+import GallaryView from './gallary/GallaryView';
+import GreenMarket from './greenMarket/GreenMarket';
+import GreenMarketDes from './greenMarket/GreenMarketDes';
+import GreenMarketDetails from './greenMarket/GreenMarketDetails';
+import GreenMarketList from './greenMarket/GreenMarketList';
+import Investment from './Investment/Investment';
+import InvestmentDes from './Investment/InvestmentDes';
+import InvestmentDetails from './Investment/InvestmentDetails';
+import InvestmentList from './Investment/InvestmentList';
 import Login from './login/Login';
 import StelaStation from './mainpage/stelastation/StelaStation';
 import StelaStationReg from './mainpage/stelastation/StelaStationReg';
@@ -20,14 +34,23 @@ import StelaMember from './membermang/stelamember/stelaallmember/StelaMember';
 import WithdrawalMember from './membermang/stelamember/withdrawmember/WithdrawalMember';
 import MusicSource from './musicsource/MusicSource';
 import MusicSourceReg from './musicsource/MusicSourceReg';
+import PartnerPage from './partner/PartnerPage';
+import PartnerView from './partner/PartnerView';
 import PlayList from './playlist/PlayList';
 import PlayListList from './playlist/PlayListList';
 import PlayListReg from './playlist/PlayListReg';
 import Privacy from './privacy/Privacy';
+import Products from './Products/Products';
+import ProductsDes from './Products/ProductsDes';
+import ProductsDetails from './Products/ProductsDetails';
+import ProductsList from './Products/ProductsList';
+import OurServices from './Services/OurServices';
 import Signup from './signup/Signup';
 import Terms from './terms-condition/Terms';
 import SingleUser from './users/SingleUser';
 import User from './users/User';
+import Video from './video/Video';
+import VideoView from './video/VideoView';
 
 
 
@@ -70,6 +93,45 @@ const Index = () => {
             <RouteWrapper exact path="/user-details" component={SingleUser}  layout={defaultLayout}/>
             <RouteWrapper exact path="/privacy" component={Privacy}  layout={defaultLayout}/>
             <RouteWrapper exact path="/farm-page" component={BIOFarmPage}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/gallary" component={Gallary}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/gallary-view" component={GallaryView}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/partner" component={PartnerPage}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/partner-view" component={PartnerView}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/services" component={OurServices}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/video" component={Video}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/video-View" component={VideoView}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/agricademy" component={Agricademy}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/blog-description" component={BlogDes}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/blog" component={BlogList}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/blog-details" component={BlogDetails}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/green-market" component={GreenMarket}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/market-Description" component={GreenMarketDes}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/green-market-list" component={GreenMarketList}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/green-market-details" component={GreenMarketDetails}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/investment" component={Investment}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/investment-description" component={InvestmentDes}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/investment-details" component={InvestmentDetails}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/investment-list" component={InvestmentList}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/products" component={Products}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/products-description" component={ProductsDes}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/products-list" component={ProductsList}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/products-details" component={ProductsDetails}  layout={defaultLayout}/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

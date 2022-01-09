@@ -8,7 +8,7 @@ export default function WithdrawalMemberList() {
     function priceFormatter(cell, row) {
     
         return (
-          <strong style={ { color: '#B931B8' } }>{ cell }</strong>
+          <strong style={ { color: '#29803b' } }>{ cell }</strong>
         );
       }
 
