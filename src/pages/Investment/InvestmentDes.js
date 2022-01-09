@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -9,7 +9,7 @@ function InvestmentDes() {
         <>
             <div className="col-12 p-0">
                 <div className="bg-navigation">
-                    <h1 className="text-white">InvestmentDes Description</h1>
+                    <h1 className="text-white">Investment Description</h1>
                 </div>
             </div>
 
@@ -35,6 +35,9 @@ function InvestmentDes() {
                     />
                 </div>
             </Container>
+            <Col xs={12} className="pb-3 pl-0 pt-5 w-100 text-center">
+                <button className='bg-custom-black text-white'>save</button>
+            </Col>
         </>
     )
 

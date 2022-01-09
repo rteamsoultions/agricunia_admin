@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container } from 'react-bootstrap';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
@@ -35,6 +35,9 @@ function GreenMarketDes() {
                     />
                 </div>
             </Container>
+            <Col xs={12} className="pb-3 pl-0 pt-5 w-100 text-center">
+                <button className='bg-custom-black text-white'>save</button>
+            </Col>
         </>
     )
 
