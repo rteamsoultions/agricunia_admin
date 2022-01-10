@@ -5,11 +5,23 @@ import { useHistory } from 'react-router';
 import Buttons from '../../common/Buttons';
 import ImageUpload from '../../common/ImageUpload';
 import InputField from '../../common/InputField';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import SelectOption from '../../common/SelectOption';
+import MessageCKEditor from '../../common/MessageCKEditor';
 
 function GreenMarketDetails() {
+
+    const [detail, setDetail] = useState("")
+    const uniqueIdState = "";
+
+    const handleChange = (newData) => {
+        setDetail(newData)
+    };
+
+    const handleEditMessage = (messageId, messageContent, title) => {
+        window.scrollTo(0, 0);
+        setDetail(messageContent)
+    };
+
     const [imgLoader] = useState(false);
     const history = useHistory();
     const [eventInfo, setEventInfo] = useState({
@@ -137,7 +149,14 @@ function GreenMarketDetails() {
 
                                         <Col className='mt-5'>
                                             <div className="App">
-                                                <CKEditor
+                                                <MessageCKEditor
+                                                    onChange={handleChange}
+                                                    onEdit={handleEditMessage}
+                                                    data={detail}
+                                                    uniqueid={uniqueIdState}
+                                                    fullToolbar={true}
+                                                />
+                                                {/* <CKEditor
                                                     editor={ClassicEditor}
                                                     data="<p>Enter Products Description</p>"
                                                     onReady={editor => {
@@ -154,7 +173,7 @@ function GreenMarketDetails() {
                                                     onFocus={(event, editor) => {
                                                         console.log('Focus.', editor);
                                                     }}
-                                                />
+                                                /> */}
                                             </div>
                                         </Col>
 

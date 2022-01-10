@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Col, Container } from 'react-bootstrap';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import MessageCKEditor from '../../common/MessageCKEditor';
 
 
 function Privacy() {
+    const [detail, setDetail] = useState("")
+    const uniqueIdState = "";
+
+    const handleChange = (newData) => {
+        setDetail(newData)
+    };
+
+    const handleEditMessage = (messageId, messageContent, title) => {
+        window.scrollTo(0, 0);
+        setDetail(messageContent)
+    };
 
     return (
         <>
@@ -16,7 +26,14 @@ function Privacy() {
 
             <Container className='mt-5 pt-5'>
                 <div className="App">
-                    <CKEditor
+                    <MessageCKEditor
+                        onChange={handleChange}
+                        onEdit={handleEditMessage}
+                        data={detail}
+                        uniqueid={uniqueIdState}
+                        fullToolbar={true}
+                    />
+                    {/* <CKEditor
                         editor={ClassicEditor}
                         data="<p>Enter Privacy Policy</p>"
                         onReady={editor => {
@@ -33,7 +50,7 @@ function Privacy() {
                         onFocus={(event, editor) => {
                             console.log('Focus.', editor);
                         }}
-                    />
+                    /> */}
                 </div>
             </Container>
             <Col xs={12} className="pb-3 pl-0 pt-5 w-100 text-center">

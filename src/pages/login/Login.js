@@ -3,6 +3,9 @@ import { Col, Row, Container, Form} from 'react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import Buttons from '../../common/Buttons';
 import InputField from '../../common/InputField';
+import { ApiPost } from '../../helper/API/ApiData';
+import AuthStorage from '../../helper/AuthStorage';
+import { loginWith } from '../../helper/Constant';
 
 function Login() {
 
@@ -18,6 +21,7 @@ function Login() {
     })
 
     const viewMore = () => {
+        history.push("/");
 
         let formError = {
             emailError:'',
@@ -40,9 +44,9 @@ function Login() {
         })
 
         if(!formError.emailError && !formError.passwordError){
-            history.push("/");
+            return false
         }
-  
+        return true
     }   
 
 
@@ -53,6 +57,27 @@ function Login() {
             [e.target.name]: e.target.value
         });
     };
+
+    const login = () => {
+        if (!viewMore()) {
+            return
+        }
+        ApiPost('user/auth/login', {
+            email: state.email,
+            password: state.password,
+            login_with: loginWith.Manual,
+            is_admin: true
+        }).then((res) => {
+            AuthStorage.getStorageData(res.data.token)
+            history.push("/");
+        }).catch((err) => {
+            console.log(err);
+            // setPasswordErr(err)
+            // if (err) {
+            //     // setlimitError(err);
+            // }
+        })
+    }
 
     return (
         
@@ -107,7 +132,7 @@ function Login() {
                                         type="button"
                                         children ="Log-in"
                                         styleClass="loginreg-btn mt-4"
-                                        handleClick={viewMore}
+                                        handleClick={login}
                                         
                                     />
                                  

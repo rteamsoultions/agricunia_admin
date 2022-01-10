@@ -5,9 +5,6 @@ import { useHistory } from 'react-router';
 import Buttons from '../../common/Buttons';
 import ImageUpload from '../../common/ImageUpload';
 import InputField from '../../common/InputField';
-import { CKEditor } from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import SelectOption from '../../common/SelectOption';
 
 function ProductsDetails() {
     const [imgLoader] = useState(false);
