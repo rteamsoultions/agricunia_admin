@@ -2,9 +2,12 @@ import React from 'react';
 import { Navbar, Nav, Container ,Image, Button  } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { setToggleMenu } from '../../redux/actions/toggleMenuAction';
+import AuthStorage from '../../helper/AuthStorage'
+import { useHistory } from 'react-router-dom';
 
 
 const AuthHeader = () => {
+    const history = useHistory()
     const dispatch = useDispatch();
     const { is_toggleMenu } = useSelector((state) => state.menuToggle);
 
@@ -15,6 +18,11 @@ const AuthHeader = () => {
         else{
             dispatch(setToggleMenu(true));
         }
+    }
+
+    const logOut = () => {
+        AuthStorage.deauthenticateUser()
+        history.push('/login')
     }
 
     return (
@@ -33,7 +41,7 @@ const AuthHeader = () => {
                
                 <Nav className="ml-auto">
                 <Nav.Link  className="text-center"> 
-                    <Image  src="img/icon/logout.png" width="30px"/>
+                    <Image  src="img/icon/logout.png" width="30px" onClick={logOut} />
                     {/* <p className="text-white mb-0">Logout</p> */}
                 </Nav.Link>
                 </Nav>

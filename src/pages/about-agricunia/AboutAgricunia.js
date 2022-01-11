@@ -11,9 +11,8 @@ function AboutAgricunia() {
     const uniqueIdState = "";
 
     const getData = () => {
-        ApiGetNoAuth(`multidata/get-category-wise-display-user?category=AboutAgricunia`)
+        ApiGet(`multidata/get-category-wise-display-admin?category=${CategoryType.AboutAgricunia}`)
         .then((response) => {
-            console.log("reasponse",response);
             setDetail(response && response.data && response.data.content ? response.data.content : "")
             setAboutAgricuniaId(response && response.data && response.data.id ? response.data.id : "")
         }).catch((error) => {
@@ -30,11 +29,9 @@ function AboutAgricunia() {
         }
         ApiPost(`multidata/add-category-wise-content`, body)
             .then((response) => {
-                console.log("reasponse",response);
             }).catch((error) => {
                 console.log(error);
-                toast.error("Fail!")
-                // setTechData({ ...techData, displayImage: displayImage })
+                // toast.error("Fail!")
             });
     }
 

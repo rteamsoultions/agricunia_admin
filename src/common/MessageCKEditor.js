@@ -2,9 +2,11 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { API } from "../config/API/api.config";
 import DecoupledEditor from '@ckeditor/ckeditor5-build-decoupled-document';
 import { useEffect, useState } from "react";
+import AuthStorage from "../helper/AuthStorage";
 
 
 const MessageCKEditor = (props) => {
+    const token = AuthStorage.getToken()
     let IFRAME_SRC = '//cdn.iframe.ly/api/iframe';
     let API_KEY = '13c9bd8f21b29e738b1645';
     const [wordCount, setWordCount] = useState(0);
@@ -93,7 +95,7 @@ const MessageCKEditor = (props) => {
                             withCredentials: true,
                             headers: {
                                 "X-CSRF-TOKEN": "CSFR-Token",
-                                Authorization: "Bearer <JSON Web Token>",
+                                Authorization: `Bearer ${token}`,
                             },
                         }
                     }}
@@ -145,7 +147,7 @@ const MessageCKEditor = (props) => {
                             withCredentials: true,
                             headers: {
                                 "X-CSRF-TOKEN": "CSFR-Token",
-                                Authorization: "Bearer <JSON Web Token>",
+                                Authorization: `Bearer ${token}`,
                             },
                         }
                     }}
