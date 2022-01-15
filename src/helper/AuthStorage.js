@@ -48,7 +48,7 @@ class AuthStorage {
     }
 
     static getLang() {
-        return localStorage.getItem(STORAGEKEY.lang) || getCookie('i18next') || "ko";
+        return localStorage.getItem(STORAGEKEY.lang) || getCookie('i18next') || "en";
     }
 }
 

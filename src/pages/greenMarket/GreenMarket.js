@@ -6,7 +6,7 @@ function GreenMarket() {
     const history = useHistory();
 
     const GMDesBtn = () =>{
-        history.push("/market-Description")
+        history.push("/market-description")
     }
 
     const GMProBtn = () =>{

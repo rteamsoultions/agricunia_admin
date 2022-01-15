@@ -132,7 +132,7 @@ const Index = () => {
             <RouteWrapper exact path="/blog" component={BlogList} layout={defaultLayout} />
             <RouteWrapper exact path="/blog-details" component={BlogDetails} layout={defaultLayout} />
             <RouteWrapper exact path="/green-market" component={GreenMarket} layout={defaultLayout} />
-            <RouteWrapper exact path="/market-Description" component={GreenMarketDes} layout={defaultLayout} />
+            <RouteWrapper exact path="/market-description" component={GreenMarketDes} layout={defaultLayout} />
             <RouteWrapper exact path="/green-market-list" component={GreenMarketList} layout={defaultLayout} />
             <RouteWrapper exact path="/green-market-details" component={GreenMarketDetails} layout={defaultLayout} />
             <RouteWrapper exact path="/investment" component={Investment} layout={defaultLayout} />

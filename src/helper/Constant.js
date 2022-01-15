@@ -10,7 +10,11 @@ const CategoryType = {
     BIOOrganicFarm:"BIOOrganicFarm",
     OverServices:"OverServices",
     PrivacyPolicy:"PrivacyPolicy",
-    TermsAndConditions:"TermsAndConditions"
+    TermsAndConditions:"TermsAndConditions",
+    BlogTopDesc:"BlogTopDesc",
+    GreenMarketTopDesc:"GreenMarketTopDesc",
+    InvestmentTopDesc:"InvestmentTopDesc",
+    PesticideProductTopDesc:"PesticideProductTopDesc"
   }
 
 const loginWith = {

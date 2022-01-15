@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import MessageCKEditor from '../../common/MessageCKEditor';
+import { ApiGet, ApiPost } from '../../helper/API/ApiData';
+import { CategoryType } from '../../helper/Constant';
 
 function InvestmentDes() {
+    const history = useHistory()
     const [detail, setDetail] = useState("")
+    const [aboutUsId, setAboutUsId] = useState("")
     const uniqueIdState = "";
 
     const handleChange = (newData) => {
@@ -15,6 +20,38 @@ function InvestmentDes() {
         setDetail(messageContent)
     };
 
+    const getData = () => {
+        ApiGet(`multidata/get-category-wise-display-admin?category=${CategoryType.InvestmentTopDesc}`)
+            .then((response) => {
+                setDetail(response && response.data && response.data.content ? response.data.content : "")
+                setAboutUsId(response && response.data && response.data.id ? response.data.id : "")
+            }).catch((error) => {
+                console.log(error);
+                // toast.error("Fail!")
+            });
+    }
+
+    const saveData = () => {
+        const body = {
+            id: aboutUsId,
+            content: detail,
+            category: CategoryType.InvestmentTopDesc
+        }
+        ApiPost(`multidata/add-category-wise-content`, body)
+            .then((response) => {
+            }).catch((error) => {
+                console.log(error);
+                // toast.error("Fail!")
+            });
+    }
+
+    const back = () => {
+        history.push('/investment')
+    }
+
+    useEffect(() => {
+        getData()
+    }, [])
     return (
         <>
             <div className="col-12 p-0">
@@ -32,28 +69,11 @@ function InvestmentDes() {
                         uniqueid={uniqueIdState}
                         fullToolbar={true}
                     />
-                    {/* <CKEditor
-                        editor={ClassicEditor}
-                        data="<p>Enter InvestmentDes Description</p>"
-                        onReady={editor => {
-                            // You can store the "editor" and use when it is needed.
-                            console.log('Editor is ready to use!', editor);
-                        }}
-                        onChange={(event, editor) => {
-                            const data = editor.getData();
-                            console.log({ event, editor, data });
-                        }}
-                        onBlur={(event, editor) => {
-                            console.log('Blur.', editor);
-                        }}
-                        onFocus={(event, editor) => {
-                            console.log('Focus.', editor);
-                        }}
-                    /> */}
                 </div>
             </Container>
             <Col xs={12} className="pb-3 pl-0 pt-5 w-100 text-center">
-                <button className='bg-custom-black text-white'>save</button>
+                <button className='bg-custom-black text-white ml-2' onClick={saveData}>Save</button>
+                <button className='bg-custom-black text-white ml-2' onClick={back}>Back</button>
             </Col>
         </>
     )
