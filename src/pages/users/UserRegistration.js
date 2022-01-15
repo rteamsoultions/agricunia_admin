@@ -126,6 +126,10 @@ const UserRegistration = () => {
             })
     }
 
+    const backToUserList = () => {
+        history.push('/user')
+    }
+
     useEffect(() => {
         if (id) {
             getUserDataByID()
@@ -201,6 +205,10 @@ const UserRegistration = () => {
                                         children="Save"
                                         styleClass="search-button ml-2"
                                         handleClick={saveData} />
+                                    <Buttons
+                                        children="Back"
+                                        styleClass="search-button ml-2"
+                                        handleClick={backToUserList} />
                                 </Col>
 
                             </div>

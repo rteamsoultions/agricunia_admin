@@ -48,8 +48,6 @@ import ProductsList from './Products/ProductsList';
 import OurServices from './Services/OurServices';
 import Signup from './signup/Signup';
 import Terms from './terms-condition/Terms';
-import SingleUser from './users/SingleUser';
-import User from './users/User';
 import UserManagement from './users/UserManagement';
 import UserRegistration from './users/UserRegistration';
 import Video from './video/Video';
