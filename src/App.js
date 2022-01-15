@@ -1,6 +1,6 @@
 import './App.scss';
 import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { LastLocationProvider } from 'react-router-last-location';
 import Routes from './router/Routes';
 import store from "./redux/store";
@@ -10,7 +10,7 @@ function App() {
   return (
 
     <Provider store={store}>
-      <HashRouter>
+      <BrowserRouter>
         <LastLocationProvider>
           <ToastContainer
             position="top-right"
@@ -24,7 +24,7 @@ function App() {
             pauseOnHover theme='colored' />
           <Routes />
         </LastLocationProvider>
-      </HashRouter>
+        </BrowserRouter>
     </Provider>
   );
 }

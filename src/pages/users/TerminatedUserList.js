@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import RemotePagination from '../../common/RemotePagination';
 
-const UserList = ({ data, getUserListManagement, totalSize, selectRow, rowEvents }) => {
+const TerminatedUserList = ({ data, getUserListManagement, totalSize, selectRow, rowEvents }) => {
 
     const history = useHistory();
 
@@ -35,15 +35,23 @@ const UserList = ({ data, getUserListManagement, totalSize, selectRow, rowEvents
             dataField: "email",
             text: "Email",
         },
+        // {
+        //     dataField: "role_type",
+        //     text: "Role Type",
+        // },
         {
             dataField: "created_at",
             text: "Created date",
         },
         {
-            dataField: "id",
-            text: "Edit",
-            formatter: linkEditFollow,
-        }
+            dataField: "deleted_by",
+            text: "Deleted By",
+        },
+        // {
+        //     dataField: "id",
+        //     text: "Edit",
+        //     formatter: linkEditFollow,
+        // }
     ];
 
     const handleTableChange = (pagenumber, sizeperpage) => {
@@ -63,11 +71,11 @@ const UserList = ({ data, getUserListManagement, totalSize, selectRow, rowEvents
                     selectRow={selectRow}
                     rowEvents={rowEvents}
                     pageName=""
-                    showCheckbox={true}
+                    showCheckbox={false}
                 />
             </div>
         </div>
     )
 }
 
-export default UserList
+export default TerminatedUserList
