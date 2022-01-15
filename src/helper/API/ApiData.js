@@ -19,7 +19,7 @@ export const ApiGet = (type) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -43,7 +43,7 @@ export const ApiGetNoAuth = (type) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -67,7 +67,7 @@ export const ApiPost = (type, userData) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -91,7 +91,7 @@ export const ApiPostNoAuth = (type, userData) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -115,7 +115,7 @@ export const ApiPatch = (type, userData) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -138,7 +138,7 @@ export const ApiPatchNoAuth = (type, userData) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -162,7 +162,7 @@ export const ApiDelete = (type, userData) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&
@@ -185,7 +185,7 @@ export const ApiPut = (type, userData) => {
             .catch((error) => {
                 if (error?.response?.status === 401) {
                     AuthStorage.deauthenticateUser();
-                    window.location.href = "/"
+                    
                 }
                 if (error && error.hasOwnProperty('response') &&
                     error.response && error.response.hasOwnProperty('data') && error.response.data &&

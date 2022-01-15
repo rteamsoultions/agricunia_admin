@@ -1,5 +1,8 @@
 
-export const Role = "USER" | "ADMIN";
+const RoleType = {
+    user:"USER",
+    admin:"ADMIN"
+};
 
 const CategoryType = {
     AboutAgricunia:"AboutAgricunia",
@@ -14,6 +17,7 @@ const loginWith = {
     Manual: "Manual"
 }
 export {
+    RoleType,
     CategoryType,
     loginWith
 };

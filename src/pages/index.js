@@ -1,6 +1,7 @@
-import React from 'react';
-import {Route, Switch } from 'react-router';
+import React, { useEffect } from 'react';
+import { Route, Switch, useLocation } from 'react-router';
 import Demopage from '../Demopage';
+import AuthStorage from '../helper/AuthStorage';
 import Layout from '../layout/Layout';
 import LogRegLayout from '../layout/LogRegLayout';
 import AboutAgricunia from './about-agricunia/AboutAgricunia';
@@ -49,12 +50,40 @@ import Signup from './signup/Signup';
 import Terms from './terms-condition/Terms';
 import SingleUser from './users/SingleUser';
 import User from './users/User';
+import UserManagement from './users/UserManagement';
+import UserRegistration from './users/UserRegistration';
 import Video from './video/Video';
 import VideoView from './video/VideoView';
+import { useHistory } from 'react-router-dom'
+import { ApiGet } from '../helper/API/ApiData';
 
 
 
 const Index = () => {
+
+    const pathname = ["/login"]
+    const history = useHistory();
+    const location = useLocation();
+
+    useEffect(() => {
+
+        if (AuthStorage.isUserAuthenticated()) {
+              ApiGet("user/validate")
+                .then((res) => {
+                //   dispatch(changeLoginState(true));
+                })
+                .catch((error) => {
+                  AuthStorage.deauthenticateUser();
+                  history.push("/login");
+                });
+        }
+        else {
+            if (!pathname.includes(location.pathname)) {
+                history.push("/login");
+            }
+        }
+    }, []);
+
 
     const defaultLayout = ({ children }) => {
         return <Layout>
@@ -85,37 +114,37 @@ const Index = () => {
 
             <RouteWrapper path="/login" component={Login} layout={loginLayout} />
             <RouteWrapper path="/signup" component={Signup} layout={loginLayout} />
-            <RouteWrapper exact path="/" component={Dashboard}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/aboutagricunia" component={AboutAgricunia}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/aboutus" component={AboutUs}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/terms" component={Terms}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/user" component={User}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/user-details" component={SingleUser}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/privacy" component={Privacy}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/farm-page" component={BIOFarmPage}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/gallary" component={Gallary}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/gallary-view" component={GallaryView}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/partner" component={PartnerPage}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/partner-view" component={PartnerView}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/services" component={OurServices}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/video" component={Video}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/video-View" component={VideoView}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/agricademy" component={Agricademy}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/blog-description" component={BlogDes}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/blog" component={BlogList}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/blog-details" component={BlogDetails}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/green-market" component={GreenMarket}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/market-Description" component={GreenMarketDes}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/green-market-list" component={GreenMarketList}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/green-market-details" component={GreenMarketDetails}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/investment" component={Investment}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/investment-description" component={InvestmentDes}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/investment-details" component={InvestmentDetails}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/investment-list" component={InvestmentList}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/products" component={Products}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/products-description" component={ProductsDes}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/products-list" component={ProductsList}  layout={defaultLayout}/>
-            <RouteWrapper exact path="/products-details" component={ProductsDetails}  layout={defaultLayout}/>
+            <RouteWrapper exact path="/" component={Dashboard} layout={defaultLayout} />
+            <RouteWrapper exact path="/aboutagricunia" component={AboutAgricunia} layout={defaultLayout} />
+            <RouteWrapper exact path="/aboutus" component={AboutUs} layout={defaultLayout} />
+            <RouteWrapper exact path="/terms" component={Terms} layout={defaultLayout} />
+            <RouteWrapper exact path="/user" component={UserManagement} layout={defaultLayout} />
+            <RouteWrapper exact path="/user-details" component={UserRegistration} layout={defaultLayout} />
+            <RouteWrapper exact path="/privacy" component={Privacy} layout={defaultLayout} />
+            <RouteWrapper exact path="/farm-page" component={BIOFarmPage} layout={defaultLayout} />
+            <RouteWrapper exact path="/gallary" component={Gallary} layout={defaultLayout} />
+            <RouteWrapper exact path="/gallary-view" component={GallaryView} layout={defaultLayout} />
+            <RouteWrapper exact path="/partner" component={PartnerPage} layout={defaultLayout} />
+            <RouteWrapper exact path="/partner-view" component={PartnerView} layout={defaultLayout} />
+            <RouteWrapper exact path="/services" component={OurServices} layout={defaultLayout} />
+            <RouteWrapper exact path="/video" component={Video} layout={defaultLayout} />
+            <RouteWrapper exact path="/video-View" component={VideoView} layout={defaultLayout} />
+            <RouteWrapper exact path="/agricademy" component={Agricademy} layout={defaultLayout} />
+            <RouteWrapper exact path="/blog-description" component={BlogDes} layout={defaultLayout} />
+            <RouteWrapper exact path="/blog" component={BlogList} layout={defaultLayout} />
+            <RouteWrapper exact path="/blog-details" component={BlogDetails} layout={defaultLayout} />
+            <RouteWrapper exact path="/green-market" component={GreenMarket} layout={defaultLayout} />
+            <RouteWrapper exact path="/market-Description" component={GreenMarketDes} layout={defaultLayout} />
+            <RouteWrapper exact path="/green-market-list" component={GreenMarketList} layout={defaultLayout} />
+            <RouteWrapper exact path="/green-market-details" component={GreenMarketDetails} layout={defaultLayout} />
+            <RouteWrapper exact path="/investment" component={Investment} layout={defaultLayout} />
+            <RouteWrapper exact path="/investment-description" component={InvestmentDes} layout={defaultLayout} />
+            <RouteWrapper exact path="/investment-details" component={InvestmentDetails} layout={defaultLayout} />
+            <RouteWrapper exact path="/investment-list" component={InvestmentList} layout={defaultLayout} />
+            <RouteWrapper exact path="/products" component={Products} layout={defaultLayout} />
+            <RouteWrapper exact path="/products-description" component={ProductsDes} layout={defaultLayout} />
+            <RouteWrapper exact path="/products-list" component={ProductsList} layout={defaultLayout} />
+            <RouteWrapper exact path="/products-details" component={ProductsDetails} layout={defaultLayout} />
 
 
 

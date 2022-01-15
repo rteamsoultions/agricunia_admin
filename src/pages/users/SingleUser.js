@@ -23,7 +23,6 @@ function SingleUser() {
     const history = useHistory();
 
     const handleChange = (e) => {
-
         setState({
             ...state,
             [e.target.name]: e.target.value
@@ -81,24 +80,13 @@ function SingleUser() {
                                             <label class="profile-label">+91 7894561230</label>
                                         </Col>
 
-
-                                      
-
-                                     
-
-
-
                                         <Col md={3} className="profile-table-td title-color font-weight-bold">Sign up date / Last log-in</Col>
                                         <Col md={9} className="profile-table-td-input">
                                             <label class="profile-label">YYYY-MM-DD</label>
                                         </Col>
                                     </Row>
 
-
-                                   
                                 </Container>
-
-
 
                             </div>
                         </Form>
