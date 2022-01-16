@@ -10,11 +10,8 @@ import TerminatedUserList from "./TerminatedUserList";
 import UserList from "./UserList";
 
 const UserManagement = () => {
-
     const history = useHistory();
-
     const [searchTerm, setSearchTerm] = useState("")
-
     const [userdata, setUserdata] = useState([])
     const [totalSize, setTotalSize] = useState(0);
     const [userListId, setUserListId] = useState([]);

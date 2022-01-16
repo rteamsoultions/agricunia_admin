@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap';
 function SelectOption({value, data, styleClass, label, defauultvalue, onChange, name, disabled}) {
 
     const handleChange = (event) =>{
-       console.log(event);
+       onChange(event.target.value)
     }
 
     return (

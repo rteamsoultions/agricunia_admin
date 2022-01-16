@@ -1,17 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import swal from 'sweetalert';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Buttons from '../../common/Buttons';
 import ImageUpload from '../../common/ImageUpload';
 import InputField from '../../common/InputField';
 import SelectOption from '../../common/SelectOption';
 import MessageCKEditor from '../../common/MessageCKEditor';
+import { ApiDelete, ApiGet, ApiPost, ApiPut } from '../../helper/API/ApiData';
 
 function GreenMarketDetails() {
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get("id");
 
     const [detail, setDetail] = useState("")
     const uniqueIdState = "";
+
+    const [imgLoader] = useState(false);
+    
+    const [marketData, setMarketData] = useState({
+        title: "",
+        price: "",
+        category: ""
+    })
+    const [imageInfo, setImageInfo] = useState({
+        image_URL: "",
+        display_image_URL: "",
+        signature_URL: "",
+    });
+
+    const [formErr, setFormErr] = useState({
+        imageErr: "",
+        contentErr: "",
+        titleErr: "",
+        priceErr: "",
+        categoryErr: "",
+    })
+
 
     const handleChange = (newData) => {
         setDetail(newData)
@@ -22,30 +49,31 @@ function GreenMarketDetails() {
         setDetail(messageContent)
     };
 
-    const [imgLoader] = useState(false);
-    const history = useHistory();
-    const [eventInfo, setEventInfo] = useState({
-        image_URL: "",
-        signature_URL: "",
-    });
     const imageOnChange = (file) => {
-        console.log("image-loaded");
+        let formData = new FormData();
+        if (file) {
+            formData.append('image', file);
+        } else {
+            return
+        }
+        ApiPost('general/file-and-image-upload', formData)
+            .then((res) => {
+                setImageInfo({
+                    ...imageInfo,
+                    image_URL: res.url,
+                    display_image_URL: res.display_url
+                })
+            })
+            .catch((err) => {
+                console.log("err", err);
+            })
     }
 
-    const [state, setState] = useState({
-
-        selectoptioncountry: '',
-        creatortel: '',
-        creatoremail: '',
-        companyname: '',
-        vocal_summary: '',
-        Weblink: '',
-    })
+    
 
     const onRemoveImage = () => {
-        console.log("onRemove Called");
-        setEventInfo({
-            ...eventInfo,
+        setImageInfo({
+            ...imageInfo,
             image_URL: "",
             signature_URL: "",
         },
@@ -54,26 +82,119 @@ function GreenMarketDetails() {
             }
         )
 
-        console.log("image url", eventInfo.image_URL, eventInfo.signature_URL);
-
-    }
-    const SavePostBtn = () => {
-
-
-
     }
 
+    const getMarketDataById = () => {
+        ApiGet(`greenMarket/get-green-market-user-by-id/${id}`)
+            .then((res) => {
+                setMarketData({
+                    ...marketData,
+                    title:res.data.title,
+                    price:res.data.price.toString(),
+                    category:res.data.category
+                })
+                setImageInfo({
+                    ...imageInfo.image_URL,
+                    image_URL: res.data.image,
+                    display_image_URL: res.data.display_image,
+                })
+                setDetail(res.data.content)
+            })
+            .catch((err) => {
+                console.log("err", err);
+            })
+    }
 
-    const handleDropdown = () => {
+    const validate = () => {
+        let flag = false
+        let err = {
+            imageErr: "",
+            contentErr: "",
+            titleErr: "",
+            priceErr: "",
+            categoryErr: "",
+        }
+
+        if (!marketData.title || marketData.title === "") {
+            err.titleErr = "Please enter green market title"
+            flag = true
+        }
+        if (!marketData.price || marketData.price === "") {
+            err.priceErr = "Please enter price"
+            flag = true
+        }
+        if (!marketData.category || marketData.category === "") {
+            err.categoryErr = "Please select category"
+            flag = true
+        }
+
+        if (!imageInfo.image_URL || imageInfo.image_URL === "") {
+            err.imageErr = "Please select image"
+            flag = true
+        }
+
+        if (!detail || detail === "") {
+            err.contentErr = "Please enter blog description"
+            flag = true
+        }
+
+        setFormErr(err)
+        return flag
+    }
+
+
+    const save = () => {
+        if(validate()) {
+            return
+        }
+
+        const body = {
+            title: marketData.title,
+            image: imageInfo.image_URL,
+            content: detail,
+            price: marketData.price,
+            category: marketData.category,
+        }
+
+        if(id) {
+            ApiPut(`greenMarket/edit-green-market/${id}`, body)
+            .then((res) => {
+                back()
+            })
+            .then((err) => {
+                console.log("err", err);
+            })
+        } else {
+            ApiPost('greenMarket/add-green-market', body)
+            .then((res) => {
+                back()
+            })
+            .then((err) => {
+                console.log("err", err);
+            })
+        }
 
     }
 
-    const liststelastation = () => {
-        history.push('/stelastation');
+    const back = () => {
+        history.push('/green-market-list');
     }
 
-    const DeletePostBtn = () => {
+    const DeleteBlogBtn = () => {
+        ApiDelete(`greenMarket/delete-green-market-by-admin/${id}`)
+            .then((res) => {
+                back()
+            })
+            .catch((err) => {
+                console.log("err", err);
+            })
     }
+
+    useEffect(() => {
+        if (id) {
+            getMarketDataById()
+        }
+    }, [id])
 
     return (
         <div>
@@ -93,28 +214,31 @@ function GreenMarketDetails() {
                                 </Col>
                                 <Container fluid class="mt-3 ">
                                     <Row>
-                                        <Col md={3} className="profile-table-td title-color font-weight-bold">Product Title Title</Col>
+                                        <Col md={3} className="profile-table-td title-color font-weight-bold">Product Title</Col>
                                         <Col md={9} className="profile-table-td-input">
                                             <div className="py-2 d-flex">
 
                                                 <InputField
                                                     name="creatortel"
-                                                    value={state.creatortel}
+                                                    value={marketData.title}
                                                     placeholder="Enter Partner Name Here"
                                                     type="search"
                                                     InputstyleClass="custom-input mb-0 custom-width"
+                                                    onChange={(e) => setMarketData({ ...marketData, title: e.target.value })}
                                                 />
-
+                                                {formErr.titleErr && <p>{formErr.titleErr}</p>}
                                             </div>
                                         </Col>
                                         <Col md={3} className="profile-table-td title-color font-weight-bold">Product Image</Col>
                                         <Col md={9} className="profile-table-td-input">
                                             <div className="py-2 signature-inputs">
-                                                <ImageUpload value={eventInfo.image_URL} onChange={imageOnChange} onRemove={onRemoveImage} loader={imgLoader} />
+                                                <ImageUpload value={imageInfo.display_image_URL} onChange={imageOnChange} onRemove={onRemoveImage} loader={imgLoader} />
                                                 <p className="mb-0 font-sm">
 
                                                     * Only images with the file name extension jpg/png, 2000x2000px to 6000x6000px can be uploaded.
                                                 </p>
+                                                
+                                                {formErr.imageErr && <p>{formErr.imageErr}</p>}
                                             </div>
                                         </Col>
                                         <Col md={3} className="profile-table-td title-color font-weight-bold">Product price</Col>
@@ -123,11 +247,14 @@ function GreenMarketDetails() {
 
                                                 <InputField
                                                     name="creatortel"
-                                                    value={state.creatortel}
+                                                    value={marketData.price}
                                                     placeholder="Price in $"
                                                     type="number"
                                                     InputstyleClass="custom-input mb-0 custom-width"
+                                                    onChange={(e) => setMarketData({ ...marketData, price: e.target.value })}
                                                 />
+                                                
+                                                {formErr.priceErr && <p>{formErr.priceErr}</p>}
 
                                             </div>
                                         </Col>
@@ -136,14 +263,18 @@ function GreenMarketDetails() {
                                             <div className="py-2">
                                                 <SelectOption
                                                     disabled data={[
-                                                        { value: 1, label: 'Meat' },
-                                                        { value: 2, label: 'Ready' },
-                                                        { value: 3, label: 'Egg' },
-                                                        { value: 4, label: 'Rice' },]}
-                                                    onChange={handleDropdown}
+                                                        { value: '', label: 'Select Country' },
+                                                        { value: 'Meat', label: 'Meat' },
+                                                        { value: 'Ready', label: 'Ready' },
+                                                        { value: 'Egg', label: 'Egg' },
+                                                        { value: 'Rice', label: 'Rice' },]}
+                                                    value={marketData.category}
+                                                    onChange={(e) => setMarketData({ ...marketData, category: e })}
                                                     name="selectstelamcountry"
                                                     styleClass="drop-down-margin"
                                                     defauultvalue="Select Country" />
+                                                    
+                                                {formErr.categoryErr && <p>{formErr.categoryErr}</p>}
                                             </div>
                                         </Col>
 
@@ -156,24 +287,8 @@ function GreenMarketDetails() {
                                                     uniqueid={uniqueIdState}
                                                     fullToolbar={true}
                                                 />
-                                                {/* <CKEditor
-                                                    editor={ClassicEditor}
-                                                    data="<p>Enter Products Description</p>"
-                                                    onReady={editor => {
-                                                        // You can store the "editor" and use when it is needed.
-                                                        console.log('Editor is ready to use!', editor);
-                                                    }}
-                                                    onChange={(event, editor) => {
-                                                        const data = editor.getData();
-                                                        console.log({ event, editor, data });
-                                                    }}
-                                                    onBlur={(event, editor) => {
-                                                        console.log('Blur.', editor);
-                                                    }}
-                                                    onFocus={(event, editor) => {
-                                                        console.log('Focus.', editor);
-                                                    }}
-                                                /> */}
+                                                
+                                                {formErr.contentErr && <p>{formErr.contentErr}</p>}
                                             </div>
                                         </Col>
 
@@ -182,8 +297,9 @@ function GreenMarketDetails() {
                                 <Col xs={12} className="pb-3 pl-0 pt-5 w-100">
                                     <div className="text-center">
 
-                                        <Buttons type="submit" children="Save" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 " handleClick={SavePostBtn} />
-                                        <Buttons type="submit" children="Delete" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 bg-line" handleClick={DeletePostBtn} />
+                                        <Buttons type="submit" children="Save" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 " handleClick={save} />
+                                        <Buttons type="submit" children="Back" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 bg-line" handleClick={back} />
+                                        {id && <Buttons type="submit" children="Delete" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 bg-line" handleClick={DeleteBlogBtn} />}
                                     </div>
                                 </Col>
 

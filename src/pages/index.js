@@ -54,6 +54,8 @@ import Video from './video/Video';
 import VideoView from './video/VideoView';
 import { useHistory } from 'react-router-dom'
 import { ApiGet } from '../helper/API/ApiData';
+import BlogManagement from './agricademy/BlogManagement';
+import GreenMarketManagement from './greenMarket/GreenMarketManagement';
 
 
 
@@ -128,13 +130,16 @@ const Index = () => {
             <RouteWrapper exact path="/video" component={Video} layout={defaultLayout} />
             <RouteWrapper exact path="/video-View" component={VideoView} layout={defaultLayout} />
             <RouteWrapper exact path="/agricademy" component={Agricademy} layout={defaultLayout} />
+
             <RouteWrapper exact path="/blog-description" component={BlogDes} layout={defaultLayout} />
-            <RouteWrapper exact path="/blog" component={BlogList} layout={defaultLayout} />
+            <RouteWrapper exact path="/blog" component={BlogManagement} layout={defaultLayout} />
             <RouteWrapper exact path="/blog-details" component={BlogDetails} layout={defaultLayout} />
+
             <RouteWrapper exact path="/green-market" component={GreenMarket} layout={defaultLayout} />
             <RouteWrapper exact path="/market-description" component={GreenMarketDes} layout={defaultLayout} />
-            <RouteWrapper exact path="/green-market-list" component={GreenMarketList} layout={defaultLayout} />
+            <RouteWrapper exact path="/green-market-list" component={GreenMarketManagement} layout={defaultLayout} />
             <RouteWrapper exact path="/green-market-details" component={GreenMarketDetails} layout={defaultLayout} />
+
             <RouteWrapper exact path="/investment" component={Investment} layout={defaultLayout} />
             <RouteWrapper exact path="/investment-description" component={InvestmentDes} layout={defaultLayout} />
             <RouteWrapper exact path="/investment-details" component={InvestmentDetails} layout={defaultLayout} />
