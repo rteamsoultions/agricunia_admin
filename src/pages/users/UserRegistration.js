@@ -81,8 +81,6 @@ const UserRegistration = () => {
         if (validate()) {
             return
         }
-        console.log("userData", userData);
-
         if (id) {
             const body = {
                 id: id,
@@ -122,7 +120,7 @@ const UserRegistration = () => {
                     phone_number: res.data.phone_number,
                 })
             }).catch((err) => {
-                console.log("err ===== ", err);
+                console.log("err", err);
             })
     }
 

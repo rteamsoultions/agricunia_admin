@@ -79,7 +79,6 @@ function Login() {
 
     const saveEmailAddress = (e) => {
         setSaveEmail(e.target.checked)
-        console.log("e", e.target.checked);
     }
 
     useEffect(() => {

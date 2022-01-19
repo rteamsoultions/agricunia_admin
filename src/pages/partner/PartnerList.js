@@ -8,22 +8,27 @@ import InputField from "../../common/InputField";
 import RemotePagination from "../../common/RemotePagination";
 import { ApiDelete } from "../../helper/API/ApiData";
 
-function ProductsList({ data, getProductListManagement, totalSize, selectRow, rowEvents }) {
+function PartnerList({ data, getPartnerListManagement, totalSize, selectRow, rowEvents }) {
     const history = useHistory();
 
+    // const viewBtn = () => {
+    //     history.push('/partner-view');
+
+    // }
+
     const editBtn = (id) => {
-        history.push(`/products-details?id=${id}`);
+        history.push(`/partner-view?id=${id}`);
 
     }
 
     const deleteBtn = (id) => {
-        ApiDelete(`pesticide/delete-pesticide-by-admin/${id}`)
-            .then((res) => {
-                getProductListManagement()
-            })
-            .catch((err) => {
-                console.log("err", err);
-            })
+        ApiDelete(`partner/delete-partner-by-admin/${id}`)
+        .then((res) => {
+            getPartnerListManagement(1, 10);
+        })
+        .catch((err) => {
+            console.log("err",err);
+        })
     }
 
 
@@ -76,25 +81,30 @@ function ProductsList({ data, getProductListManagement, totalSize, selectRow, ro
             dataField: "no_id",
             text: "No",
         },
-
         {
             dataField: "display_image",
-            text: "Product Image",
-            formatter: imageFormatter
-        },
+            text: "Logo",
+            formatter: imageFormatter,
 
-        {
-            dataField: "title",
-            text: "Product",
         },
         {
-            dataField: "description",
-            text: "Product Des",
+            dataField: "partner_name",
+            text: "Partner Name",
         },
         {
-            dataField: "link",
-            text: "Product Link",
+            dataField: "partner_weblink",
+            text: "WebLink",
         },
+        {
+            dataField: "created_at",
+            text: "Date",
+        },
+        // {
+        //     dataField: "View",
+        //     text: "View",
+        //     formatter: viewlink,
+
+        // },
         {
             dataField: "Edit",
             text: "Edit",
@@ -110,12 +120,13 @@ function ProductsList({ data, getProductListManagement, totalSize, selectRow, ro
     ];
 
     const handleTableChange = (pagenumber, sizeperpage) => {
-        getProductListManagement(pagenumber, sizeperpage);
+        getPartnerListManagement(pagenumber, sizeperpage);
     };
+
 
     return (
         <>
-            <div className="user-list checkbox-margin">
+             <div className="user-list checkbox-margin">
                 <RemotePagination
                     data={data}
                     columns={columns}
@@ -130,9 +141,8 @@ function ProductsList({ data, getProductListManagement, totalSize, selectRow, ro
                     showCheckbox={false}
                 />
             </div>
-
         </>
     )
 }
 
-export default ProductsList;
+export default PartnerList;

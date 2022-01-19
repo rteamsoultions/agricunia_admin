@@ -1,36 +1,97 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import swal from 'sweetalert';
-import { useHistory } from 'react-router';
+import { useHistory, useLocation } from 'react-router';
 import Buttons from '../../common/Buttons';
 import ImageUpload from '../../common/ImageUpload';
 import InputField from '../../common/InputField';
+import { ApiDelete, ApiGet, ApiPost, ApiPut } from '../../helper/API/ApiData';
 
 function ProductsDetails() {
-    const [imgLoader] = useState(false);
     const history = useHistory();
-    const [eventInfo, setEventInfo] = useState({
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const id = queryParams.get("id");
+
+    const [imgLoader] = useState(false);
+    const [imageInfo, setImageInfo] = useState({
         image_URL: "",
+        display_image_URL: "",
         signature_URL: "",
     });
+
     const imageOnChange = (file) => {
-        console.log("image-loaded");
+        let formData = new FormData();
+        if (file) {
+            formData.append('image', file);
+        } else {
+            return
+        }
+        ApiPost('general/file-and-image-upload', formData)
+            .then((res) => {
+                setImageInfo({
+                    ...imageInfo,
+                    image_URL: res.url,
+                    display_image_URL: res.display_url
+                })
+            })
+            .catch((err) => {
+                console.log("err", err);
+            })
+
     }
 
     const [state, setState] = useState({
-
-        selectoptioncountry: '',
-        creatortel: '',
-        creatoremail: '',
-        companyname: '',
-        vocal_summary: '',
-        Weblink: '',
+        title: "",
+        image: "",
+        description: "",
+        link: ""
     })
 
+    const [formErr, setFormErr] = useState({
+        titleErr: "",
+        imageErr: "",
+        descriptionErr: "",
+        linkErr: ""
+    })
+
+    const validate = () => {
+        let flag = false
+        let err = {
+            titleErr: "",
+            imageErr: "",
+            descriptionErr: "",
+            linkErr: ""
+        }
+
+        if (!state.title || state.title === "") {
+            err.titleErr = "Please enter product title"
+            flag = true
+        }
+
+        if (!state.description || state.description === "") {
+            err.descriptionErr = "Please enter description"
+            flag = true
+        }
+
+        if (!state.link || state.link === "") {
+            err.linkErr = "Please enter link"
+            flag = true
+        }
+
+        if (!imageInfo.image_URL || imageInfo.image_URL === "") {
+            err.imageErr = "Please select image"
+            flag = true
+        }
+
+
+        setFormErr(err)
+        return flag
+    }
+
     const onRemoveImage = () => {
-        console.log("onRemove Called");
-        setEventInfo({
-            ...eventInfo,
+        setImageInfo({
+            ...imageInfo,
             image_URL: "",
             signature_URL: "",
         },
@@ -38,24 +99,81 @@ function ProductsDetails() {
                 console.log("value", value);
             }
         )
-
-        console.log("image url", eventInfo.image_URL, eventInfo.signature_URL);
-
     }
+
+    const getProductById = () => {
+        ApiGet(`pesticide/get-pesticide-user-by-id/${id}`)
+            .then((res) => {
+                setState({
+                    ...state,
+                    title: res.data.title,
+                    description: res.data.description,
+                    link: res.data.link
+                })
+                setImageInfo({
+                    ...imageInfo.image_URL,
+                    image_URL: res.data.image,
+                    display_image_URL: res.data.display_image,
+                })
+                
+            })
+            .catch((err) => {
+                console.log("err", err);
+            })
+    }
+
     const SavePostBtn = () => {
+        if(validate()){
+            return
+        }
+
+        const body = {
+            title: state.title,
+            image: imageInfo.image_URL,
+            description: state.description,
+            link: state.link,
+        }
+        debugger
+        if (id) {
+            ApiPut(`pesticide/edit-pesticide/${id}`, body)
+                .then((res) => {
+                    back()
+                })
+                .then((err) => {
+                    console.log("err", err);
+                })
+        } else {
+            ApiPost('pesticide/add-pesticide', body)
+                .then((res) => {
+                    back()
+                })
+                .then((err) => {
+                    console.log("err", err);
+                })
+        }
+
 
     }
 
-    const handleDropdown = () => {
-
+    const back = () => {
+        history.push('/products-list');
     }
 
-    const liststelastation = () => {
-        history.push('/stelastation');
+    const DeleteProductBtn = () => {
+        ApiDelete(`pesticide/delete-pesticide-by-admin/${id}`)
+        .then((res) => {
+            back()
+        })
+        .catch((err) => {
+            console.log("err",err);
+        })
     }
 
-    const DeletePostBtn = () => {
-    }
+    useEffect(() => {
+        if (id) {
+            getProductById()
+        }
+    }, [id])
 
     return (
         <div>
@@ -80,23 +198,25 @@ function ProductsDetails() {
                                             <div className="py-2 d-flex">
 
                                                 <InputField
-                                                    name="creatortel"
-                                                    value={state.creatortel}
+                                                    name="title"
+                                                    value={state.title}
                                                     placeholder="Enter Products Name Here"
                                                     type="search"
                                                     InputstyleClass="custom-input mb-0 custom-width"
+                                                    onChange={(e) => setState({...state, title: e.target.value})}
                                                 />
-
+                                                {formErr.titleErr && <p>{formErr.titleErr}</p>}
                                             </div>
                                         </Col>
                                         <Col md={3} className="profile-table-td title-color font-weight-bold">Products Image</Col>
                                         <Col md={9} className="profile-table-td-input">
                                             <div className="py-2 signature-inputs">
-                                                <ImageUpload value={eventInfo.image_URL} onChange={imageOnChange} onRemove={onRemoveImage} loader={imgLoader} />
+                                                <ImageUpload value={imageInfo.display_image_URL} onChange={imageOnChange} onRemove={onRemoveImage} loader={imgLoader} />
                                                 <p className="mb-0 font-sm">
 
                                                     * Only images with the file name extension jpg/png, 2000x2000px to 6000x6000px can be uploaded.
                                                 </p>
+                                                {formErr.imageErr && <p>{formErr.imageErr}</p>}
                                             </div>
                                         </Col>
                                         <Col md={3} className="profile-table-td title-color font-weight-bold">Products Description</Col>
@@ -104,40 +224,32 @@ function ProductsDetails() {
                                             <div className="py-2 d-flex">
 
                                                 <InputField
-                                                    name="creatortel"
-                                                    value={state.creatortel}
+                                                    name="description"
+                                                    value={state.description}
                                                     placeholder="Products Description"
                                                     type="textarea"
                                                     InputstyleClass="custom-input mb-0 custom-width"
+                                                    onChange={(e) => setState({...state, description: e.target.value})}
                                                 />
+                                                {formErr.descriptionErr && <p>{formErr.descriptionErr}</p>}
 
                                             </div>
                                         </Col>
                                         <Col md={3} className="profile-table-td title-color font-weight-bold">Products Link</Col>
                                         <Col md={9} className="profile-table-td-input">
-                                            {/* <div className="py-2">
-                                                <SelectOption
-                                                    disabled data={[
-                                                        { value: 1, label: '1 months' },
-                                                        { value: 2, label: 'Ready' },
-                                                        { value: 3, label: 'Egg' },
-                                                        { value: 4, label: 'Rice' },]}
-                                                    onChange={handleDropdown}
-                                                    name="selectstelamcountry"
-                                                    styleClass="drop-down-margin"
-                                                    defauultvalue="Select Country" />
-                                            </div> */}
                                             <div className="py-2 d-flex align-items-center">
                                                 <InputField
-                                                    name="creatortel"
-                                                    value={state.creatortel}
+                                                    name="link"
+                                                    value={state.link}
                                                     placeholder="Products Links"
                                                     type="text"
                                                     InputstyleClass="custom-input mb-0 custom-width"
+                                                    onChange={(e) => setState({...state, link: e.target.value})}
                                                 />
-                                                <div className='pl-3'>
+                                                {formErr.linkErr && <p>{formErr.linkErr}</p>}
+                                                {/* <div className='pl-3'>
                                                     In Months
-                                                </div>
+                                                </div> */}
                                             </div>
                                         </Col>
                                     </Row>
@@ -146,7 +258,8 @@ function ProductsDetails() {
                                     <div className="text-center">
 
                                         <Buttons type="submit" children="Save" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 " handleClick={SavePostBtn} />
-                                        <Buttons type="submit" children="Delete" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 bg-line" handleClick={DeletePostBtn} />
+                                        {id && <Buttons type="submit" children="Delete" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 bg-line" handleClick={DeleteProductBtn} />}
+                                        <Buttons type="submit" children="Back" styleClass="rounded-0 bg-custom-black ml-2 mt-1 mb-2 bg-line" handleClick={back} />
                                     </div>
                                 </Col>
 

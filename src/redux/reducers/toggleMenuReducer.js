@@ -5,7 +5,6 @@ const initialState = {
 };
 
 export const toggleMenuReducer = (state = initialState, action) => {
-    console.log("reducers state",action.payload);
   switch (action.type) {
     case IS_TOGGLE_MENU:
       return {

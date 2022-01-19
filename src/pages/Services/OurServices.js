@@ -21,7 +21,6 @@ function OurServices() {
     const getData = () => {
         ApiGet(`multidata/get-category-wise-display-admin?category=${CategoryType.OverServices}`)
             .then((response) => {
-                console.log("reasponse", response);
                 setDetail(response && response.data && response.data.content ? response.data.content : "")
                 setOurServiceId(response && response.data && response.data.id ? response.data.id : "")
             }).catch((error) => {
@@ -38,7 +37,6 @@ function OurServices() {
         }
         ApiPost(`multidata/add-category-wise-content`, body)
             .then((response) => {
-                console.log("reasponse", response);
             }).catch((error) => {
                 console.log(error);
                 // toast.error("Fail!")

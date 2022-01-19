@@ -263,7 +263,7 @@ function GreenMarketDetails() {
                                             <div className="py-2">
                                                 <SelectOption
                                                     disabled data={[
-                                                        { value: '', label: 'Select Country' },
+                                                        { value: '', label: 'Select Category' },
                                                         { value: 'Meat', label: 'Meat' },
                                                         { value: 'Ready', label: 'Ready' },
                                                         { value: 'Egg', label: 'Egg' },
@@ -272,7 +272,7 @@ function GreenMarketDetails() {
                                                     onChange={(e) => setMarketData({ ...marketData, category: e })}
                                                     name="selectstelamcountry"
                                                     styleClass="drop-down-margin"
-                                                    defauultvalue="Select Country" />
+                                                    defauultvalue="Select Category" />
                                                     
                                                 {formErr.categoryErr && <p>{formErr.categoryErr}</p>}
                                             </div>
